@@ -3,298 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M-Labs | Process & Security Architecture</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        
-        :root {
-            --dark: #030712;
-            --card: #0b1329;
-            --blueprint: #1c2541;
-            --cyan: #00f5d4;
-            --teal: #00b4d8;
-            --danger: #ff4d6d;
-            --text-gray: #9ca3af;
-            --text-light: #e5e7eb;
-            --text-white: #ffffff;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html, body {
-            background-color: var(--dark) !important;
-            color: var(--text-light) !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
-            width: 100% !important;
-            height: auto !important;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .blueprint-bg {
-            background-color: var(--dark);
-            background-image: 
-                linear-gradient(rgba(0, 245, 212, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 245, 212, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            width: 100%;
-            min-height: 100vh;
-            padding: 60px 24px;
-        }
-
-        .mlabs-tech-font { font-family: 'Orbitron', sans-serif !important; letter-spacing: 0.05em; }
-
-        .ml-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 64px;
-            width: 100%;
-        }
-
-        .ml-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(28, 37, 65, 0.6);
-            padding-bottom: 24px;
-        }
-
-        .ml-nav-brand { display: flex; align-items: center; gap: 16px; }
-        .ml-brand-logo { width: 48px; height: 48px; color: var(--cyan); }
-        .ml-brand-title { font-size: 1.5rem; font-weight: 900; color: var(--text-white); }
-        .ml-brand-title span { color: var(--cyan); }
-        .ml-brand-subtitle { font-size: 9px; color: var(--teal); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 2px; }
-        .ml-badge-header { color: var(--cyan); background-color: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-
-        .ml-hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
-        @media (max-width: 900px) { .ml-hero { grid-template-columns: 1fr; gap: 40px; } }
-
-        .ml-hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
-        .ml-hero-tag { background-color: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.2); padding: 6px 16px; border-radius: 9999px; color: var(--cyan); font-size: 11px; font-weight: 700; }
-        .ml-hero-title { font-size: 2.75rem; font-weight: 900; line-height: 1.2; color: var(--text-white); }
-        .ml-gradient-text { background: linear-gradient(90deg, var(--cyan), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .ml-hero-desc { color: var(--text-gray); font-size: 15px; line-height: 1.6; max-width: 580px; }
-
-        .ml-system-card { background-color: var(--card); border: 1px solid var(--blueprint); border-radius: 24px; padding: 32px; width: 100%; max-width: 320px; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
-        .ml-system-header { font-size: 10px; letter-spacing: 0.15em; color: var(--teal); font-weight: 700; }
-        .ml-system-status { font-size: 12px; font-weight: 700; color: var(--cyan); text-align: center; }
-
-        .ml-visualizer { background-color: rgba(11, 19, 41, 0.4); border: 1px solid var(--blueprint); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 32px; }
-        .ml-vis-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        .ml-vis-title { font-size: 1.75rem; font-weight: 700; color: var(--text-white); }
-        .ml-vis-desc { font-size: 13px; color: var(--text-gray); }
-        .ml-toggle-wrapper { display: inline-flex; padding: 4px; background-color: var(--dark); border: 1px solid var(--blueprint); border-radius: 12px; }
-        
-        .ml-toggle-btn { padding: 10px 24px; border-radius: 8px; font-size: 11px; font-weight: 700; background: transparent; border: none; color: var(--text-gray); cursor: pointer; text-transform: uppercase; }
-        .ml-toggle-btn.active-asis { background-color: var(--danger); color: var(--text-white); }
-        .ml-toggle-btn.active-tobe { background-color: var(--cyan); color: var(--dark); }
-
-        .ml-nodes-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 16px; padding: 24px 0; }
-        @media (max-width: 768px) { .ml-nodes-grid { grid-template-columns: 1fr; gap: 32px; } }
-
-        .ml-node { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        .ml-node-icon-box { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--danger); color: var(--danger); background-color: rgba(255, 77, 109, 0.08); transition: all 0.3s ease; }
-        .ml-node-icon-box svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
-
-        .state-danger { border-color: var(--danger) !important; color: var(--danger) !important; background-color: rgba(255, 77, 109, 0.08) !important; }
-        .state-cyan { border-color: var(--cyan) !important; color: var(--cyan) !important; background-color: rgba(0, 245, 212, 0.08) !important; }
-        .ml-node-title { font-weight: 700; font-size: 14px; color: var(--text-white); }
-        .ml-node-desc { font-size: 12px; color: var(--text-gray); max-width: 180px; line-height: 1.5; }
-
-        .ml-arrow-col { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
-        .ml-arrow-text { font-size: 9px; font-family: monospace; margin-bottom: 6px; font-weight: 700; }
-        .ml-arrow-line { width: 100%; height: 2px; background-color: var(--danger); }
-
-        .ml-status-panel { background-color: var(--dark); border-left: 4px solid var(--danger); padding: 20px; border-radius: 0 16px 16px 0; text-align: left; }
-        .panel-border-cyan { border-left-color: var(--cyan) !important; }
-        .ml-status-title { font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; color: var(--text-white); }
-        .ml-status-text { font-size: 12px; color: var(--text-gray); line-height: 1.6; }
-
-        .ml-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        @media (max-width: 768px) { .ml-grid-3 { grid-template-columns: 1fr; } }
-        .ml-card { background-color: var(--card); border: 1px solid var(--blueprint); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px; text-align: left; }
-        .ml-card-icon { width: 40px; height: 40px; color: var(--cyan); }
-        .ml-card-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; }
-        .ml-card-title { font-size: 1.125rem; font-weight: 700; color: var(--text-white); }
-        .ml-card-desc { font-size: 12px; color: var(--text-gray); line-height: 1.6; }
-
-        .ml-footer { background-color: var(--card); border: 1px solid var(--blueprint); border-radius: 24px; padding: 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
-        @media (max-width: 768px) { .ml-footer { grid-template-columns: 1fr; padding: 32px; } }
-        .ml-foot-left { display: flex; flex-direction: column; gap: 24px; text-align: left; }
-        .ml-foot-title { font-size: 1.25rem; font-weight: 700; color: var(--text-white); }
-        .ml-contact-list { display: flex; flex-direction: column; gap: 12px; }
-        .ml-contact-item { display: flex; align-items: center; gap: 12px; color: var(--text-gray); font-size: 12px; }
-        .ml-contact-icon { width: 18px; height: 18px; color: var(--cyan); }
-        .ml-contact-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; }
-        .ml-foot-right { background-color: var(--dark); border: 1px solid var(--blueprint); border-radius: 16px; padding: 24px; text-align: left; display: flex; flex-direction: column; gap: 12px; }
-        .ml-form-title { font-size: 12px; font-weight: 700; color: var(--text-white); }
-        .ml-form-desc { font-size: 11px; color: var(--text-gray); }
-        .ml-form-btn { display: block; width: 100%; text-align: center; background-color: var(--cyan); color: var(--dark); padding: 12px; border-radius: 10px; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase; border: none; }
-    </style>
+    <title>M-Labs | Consultoría Estratégica</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="blueprint-bg">
-        <div class="ml-container">
-            <nav class="ml-nav">
-                <div class="ml-nav-brand">
-                    <svg class="ml-brand-logo" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="50" cy="50" r="45" opacity="0.2" stroke-dasharray="4 4" />
-                        <path d="M 30 70 L 40 40 L 50 55 L 60 40 L 70 70" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <div>
-                        <span class="mlabs-tech-font ml-brand-title">M-<span>Labs</span></span>
-                        <p class="mlabs-tech-font ml-brand-subtitle">Process & Security Architecture</p>
-                    </div>
-                </div>
-                <span class="ml-badge-header">PORTFOLIO CORPORATIVO</span>
-            </nav>
 
-            <section class="ml-hero">
-                <div class="ml-hero-left">
-                    <span class="ml-hero-tag">TFM &middot; Consultor Ejecutivo</span>
-                    <h1 class="ml-hero-title mlabs-tech-font">Diseñamos procesos eficientes. <br><span class="ml-gradient-text">Blindamos entornos.</span></h1>
-                    <p class="ml-hero-desc">En <strong>M-Labs</strong> fusionamos la arquitectura de operaciones con la respuesta técnica avanzada. Transformamos flujos complejos del AS-IS al TO-BE, optimizando rendimientos y blindando tus datos corporativos.</p>
-                </div>
-                <div class="ml-hero-right">
-                    <div class="ml-system-card">
-                        <span class="mlabs-tech-font ml-system-header">SISTEMA CORE</span>
-                        <div class="ml-system-graphic">
-                            <svg style="width: 130px; height: 130px; color: var(--cyan);" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="50" cy="50" r="35" opacity="0.2" />
-                                <ellipse cx="50" cy="50" rx="25" ry="10" opacity="0.3" />
-                                <ellipse cx="50" cy="50" rx="10" ry="25" opacity="0.3" />
-                                <path d="M 35 65 L 42 40 L 50 48 L 58 40 L 65 65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                        <span class="ml-system-status mlabs-tech-font">STATUS: OPTIMIZADO</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="ml-visualizer">
-                <div class="ml-vis-header">
-                    <h2 class="mlabs-tech-font ml-vis-title">Visualizador AS-IS / TO-BE</h2>
-                    <p class="ml-vis-desc">Haz clic en los botones para alternar y analizar de forma práctica la evolución operativa de los flujos de trabajo.</p>
-                    <div class="ml-toggle-wrapper">
-                        <button type="button" id="btn-asis" class="ml-toggle-btn active-asis">AS-IS</button>
-                        <button type="button" id="btn-tobe" class="ml-toggle-btn">TO-BE</button>
-                    </div>
-                </div>
-
-                <div class="ml-nodes-grid">
-                    <div class="ml-node">
-                        <div id="n1" class="ml-node-icon-box state-danger">
-                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
-                        </div>
-                        <h4 class="ml-node-title">1. Entrada de Datos</h4>
-                        <p id="d1" class="ml-node-desc">Procesos manuales propensos a errores.</p>
-                    </div>
-                    <div class="ml-arrow-col">
-                        <span id="arrow-1-text" class="ml-arrow-text text-brand-danger">Atasco</span>
-                        <div id="arrow-1-line" class="ml-arrow-line line-danger"></div>
-                    </div>
-                    <div class="ml-node">
-                        <div id="n2" class="ml-node-icon-box state-danger">
-                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                        </div>
-                        <h4 class="ml-node-title">2. Análisis Operativo</h4>
-                        <p id="d2" class="ml-node-desc">Falta de monitorización en tiempo real.</p>
-                    </div>
-                    <div class="ml-arrow-col">
-                        <span id="arrow-2-text" class="ml-arrow-text text-brand-danger">Pérdida</span>
-                        <div id="arrow-2-line" class="ml-arrow-line line-danger"></div>
-                    </div>
-                    <div class="ml-node">
-                        <div id="n3" class="ml-node-icon-box state-danger">
-                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>
-                        </div>
-                        <h4 class="ml-node-title">3. Ejecución</h4>
-                        <p id="d3" class="ml-node-desc">Silos vulnerables ante incidentes.</p>
-                    </div>
-                </div>
-
-                <div id="panel" class="ml-status-panel">
-                    <h5 id="panel-title" class="ml-status-title text-brand-danger">Rendimiento Crítico AS-IS</h5>
-                    <p id="panel-txt" class="ml-status-text">El flujo actual carece de automatizaciones organizativas. El equipo pierde un 45% del tiempo en redundancias manuales, abriendo brechas para fugas de datos operativos no controlados.</p>
-                </div>
-            </section>
-
-            <section class="ml-grid-3">
-                <div class="ml-card">
-                    <div class="ml-card-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4H8m2 0a2 2 0 100-4M14 15a2 2 0 100-4" /></svg></div>
-                    <h3 class="mlabs-tech-font ml-card-title">Arquitectura de Procesos</h3>
-                    <p class="ml-card-desc">Modelado integral y diagnóstico profundo de operaciones actuales. Analizamos la situación operativa real para proyectar el flujo óptimo ideal.</p>
-                </div>
-                <div class="ml-card">
-                    <div class="ml-card-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" /></svg></div>
-                    <h3 class="mlabs-tech-font ml-card-title">Optimización Continua</h3>
-                    <p class="ml-card-desc">Reingeniería de flujos, eliminación de fricciones y automatización de tareas críticas para maximizar el rendimiento corporativo estable.</p>
-                </div>
-                <div class="ml-card">
-                    <div class="ml-card-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-3.517-1.009-6.799-2.753-9.571m-3.44 2.04l.054-.09A13.916 13.916 0 009 11M3.02 9a14.991 14.991 0 012.437-5.4M11 12a9 9 0 01-9 9m9-9a9 9 0 009 9m0-9c0-2.162-.429-4.22-1.201-6.1M17.036 4.032A13.96 13.96 0 0012 1M12 11a9 9 0 019-9m-9 9a9 9 0 00-9-9" /></svg></div>
-                    <h3 class="mlabs-tech-font ml-card-title">M-DFIR</h3>
-                    <p class="ml-card-desc">Estrategias forenses avanzadas e investigación especializada de incidentes para mitigar riesgos y contener vectores de ataque informático.</p>
-                </div>
-            </section>
-
-            <footer class="ml-footer">
-                <div class="ml-foot-left">
-                    <span class="mlabs-tech-font" style="font-size: 1.5rem; font-weight: 900; color: #fff;">M-<span>Labs</span></span>
-                    <h3 class="mlabs-tech-font ml-foot-title">¿Hablamos del próximo paso?</h3>
-                    <div class="ml-contact-list">
-                        <div class="ml-contact-item">
-                            <div class="ml-contact-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></div>
-                            <span>Mariana Marrufo &middot; CEO & Consultant</span>
-                        </div>
-                        <div class="ml-contact-item">
-                            <div class="ml-contact-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></div>
-                            <span>mariana.marrufo.e@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="ml-foot-right">
-                    <h4 class="mlabs-tech-font ml-form-title">Contacto Directo</h4>
-                    <p class="ml-form-desc">Auditorías operativas y securización técnica para proyectos de ciberseguridad.</p>
-                    <a href="mailto:mariana.marrufo.e@gmail.com" class="ml-form-btn mlabs-tech-font">Enviar Correo</a>
-                </div>
-            </footer>
+    <header>
+        <div class="logo-container">
+            <!-- Asegúrate de que el nombre del archivo sea exactamente este -->
+            <img src="Logo MLABS v1.png" alt="M-Labs Logo" class="logo">
         </div>
-    </div>
+        <h1>M-Labs</h1>
+        <p>Arquitectura de Procesos, Optimización y Ciberseguridad</p>
+    </header>
 
-    <script>
-        (function() {
-            const btnAsis = document.getElementById('btn-asis');
-            const btnTobe = document.getElementById('btn-tobe');
-            const n1 = document.getElementById('n1'); const n2 = document.getElementById('n2'); const n3 = document.getElementById('n3');
-            const d1 = document.getElementById('d1'); const d2 = document.getElementById('d2'); const d3 = document.getElementById('d3');
-            const panel = document.getElementById('panel'); const txt = document.getElementById('panel-txt'); const panelTitle = document.getElementById('panel-title');
-            const arrow1 = document.getElementById('arrow-1-text'); const arrow2 = document.getElementById('arrow-2-text');
-            const line1 = document.getElementById('arrow-1-line'); const line2 = document.getElementById('arrow-2-line');
+    <section class="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Arquitectura de Procesos</h3>
+                <p>Modelado AS-IS / TO-BE y diagnóstico profundo para proyectar flujos operativos eficientes.</p>
+            </div>
+            <div class="service-card">
+                <h3>Optimización y Documentación</h3>
+                <p>Reingeniería de procesos, creación de manuales, guías de práctica y estandarización del know-how.</p>
+            </div>
+            <div class="service-card">
+                <h3>M-DFIR</h3>
+                <p>Consultoría especializada en respuesta a incidentes y análisis forense digital para entornos Cloud.</p>
+            </div>
+        </div>
+    </section>
 
-            function switchState(state) {
-                if(state === 'asis') {
-                    btnAsis.className = 'ml-toggle-btn active-asis'; btnTobe.className = 'ml-toggle-btn';
-                    n1.className = 'ml-node-icon-box state-danger'; n2.className = 'ml-node-icon-box state-danger'; n3.className = 'ml-node-icon-box state-danger';
-                    d1.innerText = 'Procesos manuales propensos a errores.'; d2.innerText = 'Falta de monitorización en tiempo real.'; d3.innerText = 'Silos vulnerables ante incidentes.';
-                    arrow1.innerText = 'Atasco'; arrow1.style.color = 'var(--danger)'; line1.style.backgroundColor = 'var(--danger)';
-                    arrow2.innerText = 'Pérdida'; arrow2.style.color = 'var(--danger)'; line2.style.backgroundColor = 'var(--danger)';
-                    panel.className = 'ml-status-panel'; panelTitle.innerText = 'Rendimiento Crítico AS-IS'; panelTitle.className = 'ml-status-title text-brand-danger';
-                    txt.innerText = 'El flujo actual carece de automatizaciones organizativas. El equipo de TI pierde un 45% del tiempo útil en redundancias manuales de bajo valor, abriendo brechas críticas para fugas de datos operativos no controladas.';
-                } else {
-                    btnTobe.className = 'ml-toggle-btn active-tobe'; btnAsis.className = 'ml-toggle-btn';
-                    n1.className = 'ml-node-icon-box state-cyan'; n2.className = 'ml-node-icon-box state-cyan'; n3.className = 'ml-node-icon-box state-cyan';
-                    d1.innerText = 'Captura automatizada y validada por software.'; d2.innerText = 'Análisis de procesos fluido en tiempo real.'; d3.innerText = 'Ecosistema centralizado, escalable y auditado.';
-                    arrow1.innerText = 'Óptimo'; arrow1.style.color = 'var(--cyan)'; line1.style.backgroundColor = 'var(--cyan)';
-                    arrow2.innerText = 'Eficiente'; arrow2.style.color = 'var(--cyan)'; line2.style.backgroundColor = 'var(--cyan)';
-                    panel.className = 'ml-status-panel panel-border-cyan'; panelTitle.innerText = 'Rendimiento Optimizado TO-BE'; panelTitle.className = 'ml-status-title text-brand-cyan';
-                    txt.innerText = 'La integración con M-Labs elimina el trabajo manual de bajo valor e integra protección activa de datos mediante M-DFIR. La eficiencia operativa sube un 80% y los datos quedan securizados bajo auditoría activa.';
-                }
-            }
-            if (btnAsis) btnAsis.addEventListener('click', function() { switchState('asis'); });
-            if (btnTobe) btnTobe.addEventListener('click', function() { switchState('tobe'); });
-        })();
-    </script>
 </body>
 </html>
