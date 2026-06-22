@@ -52,9 +52,9 @@
             width: 100%;
         }
 
-        /* 1. LOGO MÁS GRANDE */
+        /* LOGO */
         .logo-main {
-            max-width: 350px; /* Tamaño aumentado */
+            max-width: 350px;
             width: 100%;
             height: auto;
             display: block;
@@ -75,12 +75,14 @@
         .ml-brand-subtitle { font-size: 10px; color: var(--teal); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
         .ml-badge-header { color: var(--cyan); background-color: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; font-weight: 700; }
 
-        .ml-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; text-align: left; }
+        /* HERO & MISSION */
+        .ml-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; text-align: left; }
         .ml-hero-title { font-size: 3rem; font-weight: 900; line-height: 1.2; color: var(--text-white); text-transform: uppercase; }
         .ml-gradient-text { background: linear-gradient(90deg, var(--cyan), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .ml-hero-desc { color: var(--text-gray); font-size: 16px; line-height: 1.6; max-width: 700px; }
+        .ml-hero-mission { color: var(--text-gray); font-size: 16px; line-height: 1.7; max-width: 800px; }
+        .ml-hero-mission strong { color: var(--text-white); }
 
-        /* Visualizador */
+        /* VISUALIZADOR */
         .ml-visualizer { background-color: rgba(11, 19, 41, 0.4); border: 1px solid var(--blueprint); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 32px; }
         .ml-vis-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
         .ml-vis-title { font-size: 1.75rem; font-weight: 700; color: var(--text-white); }
@@ -111,9 +113,9 @@
         .text-brand-cyan { color: var(--cyan) !important; }
         .ml-status-text { font-size: 12px; color: var(--text-gray); line-height: 1.6; }
 
-        /* 2. SERVICIOS 100% VISIBLES */
-        .ml-services-section { padding-top: 20px; }
-        .ml-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        /* SERVICIOS */
+        .ml-services-section { padding-top: 10px; }
+        .ml-services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
         .ml-card { background-color: var(--card); border: 1px solid var(--blueprint); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px; text-align: left; transition: transform 0.3s ease; }
         .ml-card:hover { transform: translateY(-5px); border-color: var(--cyan); }
         .ml-card-icon { width: 40px; height: 40px; color: var(--cyan); }
@@ -121,7 +123,7 @@
         .ml-card-title { font-size: 1.25rem; font-weight: 700; color: var(--text-white); }
         .ml-card-desc { font-size: 13px; color: var(--text-gray); line-height: 1.6; }
 
-        /* 3. FOOTER CON DATOS CLAROS */
+        /* FOOTER */
         .ml-footer { background-color: var(--card); border: 1px solid var(--blueprint); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 30px; text-align: left; }
         .ml-foot-title { font-size: 1.5rem; font-weight: 700; color: var(--text-white); margin-bottom: 10px; }
         .ml-contact-list { display: flex; flex-direction: column; gap: 16px; }
@@ -144,12 +146,15 @@
                         <p class="mlabs-tech-font ml-brand-subtitle">Process Architecture &middot; Optimization &middot; M-DFIR</p>
                     </div>
                 </div>
-                <span class="ml-badge-header">PORTFOLIO CORPORATIVO</span>
+                <!-- Sustituido Portfolio por esto -->
+                <span class="ml-badge-header">/// STRATEGIC CONSULTING</span>
             </nav>
 
             <section class="ml-hero">
                 <h1 class="ml-hero-title mlabs-tech-font">SECURING TOMORROW <br><span class="ml-gradient-text">TRANSFORMING TODAY</span></h1>
-                <p class="ml-hero-desc">En <strong>M-Labs</strong> fusionamos la arquitectura de operaciones con la respuesta técnica avanzada. Transformamos flujos complejos para maximizar el rendimiento y blindar tus datos corporativos.</p>
+                <p class="ml-hero-mission">
+                    <strong>Nuestra visión es construir ecosistemas corporativos resilientes.</strong> En M-Labs, combinamos la reingeniería y estandarización de procesos de negocio con la respuesta técnica y contención avanzada de amenazas. Diseñamos estructuras operativas que no solo son eficientes y escalables, sino que están blindadas desde su núcleo.
+                </p>
             </section>
 
             <!-- VISUALIZADOR AS-IS / TO-BE -->
@@ -201,34 +206,47 @@
                 </div>
             </section>
 
-            <!-- SERVICIOS -->
+            <!-- SERVICIOS: AHORA CON 4 TARJETAS -->
             <section class="ml-services-section">
-                <h2 class="mlabs-tech-font" style="color:white; margin-bottom: 30px; font-size: 2rem;">Soluciones M-Labs</h2>
-                <div class="ml-grid-3">
+                <h2 class="mlabs-tech-font" style="color:white; margin-bottom: 30px; font-size: 2rem;">Nuestras Soluciones</h2>
+                <div class="ml-services-grid">
+                    
+                    <!-- Tarjeta 1 -->
                     <div class="ml-card">
                         <div class="ml-card-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4H8m2 0a2 2 0 100-4M14 15a2 2 0 100-4" /></svg></div>
                         <h3 class="mlabs-tech-font ml-card-title">Arquitectura de Procesos</h3>
                         <p class="ml-card-desc">Diagnóstico y modelado integral de operaciones. Analizamos la situación actual para proyectar flujos óptimos, eficientes y escalables.</p>
                     </div>
+
+                    <!-- Tarjeta 2 -->
                     <div class="ml-card">
                         <div class="ml-card-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" /></svg></div>
                         <h3 class="mlabs-tech-font ml-card-title">Optimización Continua</h3>
                         <p class="ml-card-desc">Reingeniería de procesos y automatización de tareas críticas. Eliminamos fricciones para maximizar el rendimiento corporativo.</p>
                     </div>
+
+                    <!-- Tarjeta 3 -->
                     <div class="ml-card">
                         <div class="ml-card-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-3.517-1.009-6.799-2.753-9.571m-3.44 2.04l.054-.09A13.916 13.916 0 009 11M3.02 9a14.991 14.991 0 012.437-5.4M11 12a9 9 0 01-9 9m9-9a9 9 0 009 9m0-9c0-2.162-.429-4.22-1.201-6.1M17.036 4.032A13.96 13.96 0 0012 1M12 11a9 9 0 019-9m-9 9a9 9 0 00-9-9" /></svg></div>
                         <h3 class="mlabs-tech-font ml-card-title">M-DFIR</h3>
                         <p class="ml-card-desc">Estrategias forenses avanzadas e investigación especializada de incidentes para mitigar riesgos y contener vectores de ataque en entornos Cloud.</p>
-                
                     </div>
-                <div style="margin-top: 40px; background-color: rgba(0, 245, 212, 0.05); border: 1px dashed rgba(0, 245, 212, 0.3); border-radius: 16px; padding: 24px; text-align: center;">
-                    <h4 class="mlabs-tech-font" style="color: var(--cyan); margin-bottom: 12px; font-size: 1.1rem;">Consultoría Especializada y Auditoría de Negocio</h4>
-                    <p style="color: var(--text-light); font-size: 13px; line-height: 1.6; max-width: 800px; margin: 0 auto;">
-                        Realizamos auditorías integrales para detectar y destrabar <strong>cuellos de botella</strong> en tu operación. Desarrollamos el <em>Know-How</em> de tu empresa mediante la creación de <strong>manuales de procesos (SOPs) y guías de operaciones</strong>. <br><br>¿Tienes un reto operativo o de seguridad distinto? <strong>Consulta por nuestras soluciones a medida.</strong>
-                    </p>
+
+                    <!-- Tarjeta 4: Auditoría y A Medida -->
+                    <div class="ml-card">
+                        <div class="ml-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="mlabs-tech-font ml-card-title">Consultoría A Medida</h3>
+                        <p class="ml-card-desc">Auditorías integrales para detectar cuellos de botella. Desarrollamos el <em>Know-How</em> de tu empresa con manuales de procesos (SOPs) y guías operativas.</p>
+                    </div>
+
                 </div>
-                </section>
-            <!-- FOOTER ACTUALIZADO -->
+            </section>
+
+            <!-- FOOTER -->
             <footer class="ml-footer">
                 <h3 class="mlabs-tech-font ml-foot-title">Contacto Directo</h3>
                 <div class="ml-contact-list">
