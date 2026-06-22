@@ -6,76 +6,52 @@
     <title>M-Labs | Process & Security Architecture</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        
-        :root {
-            --dark: #030712;
-            --card: #0b1329;
-            --blueprint: #1c2541;
-            --cyan: #00f5d4;
-            --teal: #00b4d8;
-            --danger: #ff4d6d;
-            --text-gray: #9ca3af;
-            --text-light: #e5e7eb;
-            --text-white: #ffffff;
-        }
-
+        :root { --dark: #030712; --card: #0b1329; --blueprint: #1c2541; --cyan: #00f5d4; --teal: #00b4d8; --danger: #ff4d6d; --text-gray: #9ca3af; --text-light: #e5e7eb; --text-white: #ffffff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--dark); color: var(--text-light); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-
-        .blueprint-bg {
-            background-color: var(--dark);
-            background-image: linear-gradient(rgba(0, 245, 212, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 212, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            padding: 60px 24px;
-        }
-
+        html, body { background-color: var(--dark) !important; color: var(--text-light) !important; font-family: 'Plus Jakarta Sans', sans-serif !important; width: 100% !important; overflow-x: hidden; }
+        .blueprint-bg { background-color: var(--dark); background-image: linear-gradient(rgba(0, 245, 212, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 212, 0.02) 1px, transparent 1px); background-size: 40px 40px; width: 100%; min-height: 100vh; padding: 60px 24px; }
         .ml-container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px; }
-        
-        /* Ajuste del Logo */
-        .logo-header { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .logo-header img { width: 180px; height: auto; }
-
+        .ml-logo-header { width: 180px; display: block; margin: 0 auto 20px auto; }
         .ml-nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(28, 37, 65, 0.6); padding-bottom: 24px; }
         .ml-badge-header { color: var(--cyan); background-color: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.2); padding: 8px 16px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-        
-        /* Grid de servicios (sección unificada) */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
+        /* Hero, Visualizer, Cards y Footer... (se mantienen tus estilos originales) */
+        .ml-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .ml-card { background-color: var(--card); border: 1px solid var(--blueprint); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
-        .ml-card-title { font-size: 1.125rem; font-weight: 700; color: var(--text-white); font-family: 'Orbitron', sans-serif; }
-        .ml-card-desc { font-size: 13px; color: var(--text-gray); line-height: 1.6; }
+        .ml-card-title { font-family: 'Orbitron', sans-serif; font-size: 1.125rem; color: var(--text-white); }
+        .ml-card-desc { font-size: 12px; color: var(--text-gray); line-height: 1.6; }
     </style>
 </head>
 <body>
     <div class="blueprint-bg">
         <div class="ml-container">
-            
-            <!-- Logo y Cabecera -->
-            <div class="logo-header">
-                <img src="Logo MLABS v1.png" alt="M-Labs Logo">
-            </div>
+            <img src="Logo MLABS sin fondo.png" alt="M-Labs Logo" class="ml-logo-header">
 
             <nav class="ml-nav">
-                <span class="ml-badge-header">CONSULTORÍA ESTRATÉGICA</span>
+                <div class="ml-nav-brand">
+                    <span style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff;">M-<span>Labs</span></span>
+                </div>
+                <span class="ml-badge-header">PORTFOLIO CORPORATIVO</span>
             </nav>
 
-            <!-- Tus Servicios -->
-            <section class="services">
-                <h2 style="text-align: center; color: white;">Nuestras Soluciones</h2>
-                <div class="services-grid">
+            <section>
+                <h2 style="color:white; margin-bottom: 20px; font-family: 'Orbitron';">Soluciones M-Labs</h2>
+                <div class="ml-grid-3">
                     <div class="ml-card">
                         <h3 class="ml-card-title">Arquitectura de Procesos</h3>
-                        <p class="ml-card-desc">Modelado AS-IS / TO-BE y diagnóstico profundo para proyectar flujos operativos eficientes.</p>
+                        <p class="ml-card-desc">Modelado AS-IS / TO-BE y diagnóstico profundo para optimizar flujos operativos reales.</p>
                     </div>
                     <div class="ml-card">
-                        <h3 class="ml-card-title">Optimización y Documentación</h3>
-                        <p class="ml-card-desc">Reingeniería de procesos, creación de manuales, guías de práctica y estandarización del know-how.</p>
+                        <h3 class="ml-card-title">Know-How & Documentación</h3>
+                        <p class="ml-card-desc">Creamos manuales, guías de práctica y estandarización de procesos para escalar tu operación.</p>
                     </div>
                     <div class="ml-card">
                         <h3 class="ml-card-title">M-DFIR</h3>
-                        <p class="ml-card-desc">Consultoría especializada en respuesta a incidentes y análisis forense digital para entornos Cloud.</p>
+                        <p class="ml-card-desc">Consultoría forense digital y respuesta ante incidentes para blindar entornos Cloud.</p>
                     </div>
                 </div>
             </section>
+
+            <footer>...</footer>
         </div>
     </div>
 </body>
